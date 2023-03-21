@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 
 import App from "@/App.vue";
 import { createPinia } from "pinia/dist/pinia";
-import { RULE } from "@/domain/password/rules";
+import { RulesErrorLexicon, RULE } from "@/domain/password/rules";
 import { useStrongPasswordStore } from "@/stores/strong-password";
 import {
   StrengthOption,
@@ -11,8 +11,8 @@ import {
 } from "../domain/password/strength-options";
 
 const RULE_INDICATOR_CLASS = {
-  pass: "password-hint__rule--pass",
-  fail: "password-hint__rule--fail",
+  pass: "field__rule--valid",
+  fail: "field__rule--inValid",
 };
 
 describe("App", () => {
@@ -46,68 +46,68 @@ describe("App", () => {
       },
       {
         password: "A",
-        passedRules: [RULE.OneLetter],
+        passedRules: [RulesErrorLexicon.OneLetter],
         description: "one character",
       },
       {
         password: "Ab",
-        passedRules: [RULE.OneLetter, RULE.UpperAndLower],
+        passedRules: [RulesErrorLexicon.OneLetter, RulesErrorLexicon.UpperAndLower],
         description: "upper and lower char",
       },
       {
         password: "3a33",
-        passedRules: [RULE.OneLetter, RULE.OneNumber],
+        passedRules: [RulesErrorLexicon.OneLetter, RulesErrorLexicon.OneNumber],
         description: "upper and lower char",
       },
       ...NOT_EXCLUSIVE_SPEC_SYMBOLS_LIST.split("").map((specialChar) => ({
         password: `a${specialChar}p`,
-        passedRules: [RULE.SpecialSymbol, RULE.OneLetter],
+        passedRules: [RulesErrorLexicon.SpecialSymbol, RulesErrorLexicon.OneLetter],
         description: "special char",
       })),
       {
         password: "aaaa",
-        passedRules: [RULE.OneLetter],
+        passedRules: [RulesErrorLexicon.OneLetter],
         description: "one character",
       },
       {
         password: "aaaae",
-        passedRules: [RULE.OneLetter, RULE.LongerThan4],
+        passedRules: [RulesErrorLexicon.OneLetter, RulesErrorLexicon.LongerThan4],
         description: "longer than 4",
       },
       {
         password: "ab123",
-        passedRules: [RULE.OneLetter, RULE.OneNumber, RULE.LongerThan4],
+        passedRules: [RulesErrorLexicon.OneLetter, RulesErrorLexicon.OneNumber, RulesErrorLexicon.LongerThan4],
         description: "longer than 4",
       },
       {
         password: "###!!~~)",
-        passedRules: [RULE.SpecialSymbol, RULE.LongerThan4],
+        passedRules: [RulesErrorLexicon.SpecialSymbol, RulesErrorLexicon.LongerThan4],
         description: "longer than 4",
       },
       {
         password: "Gsasfgasa",
         passedRules: [
-          RULE.OneLetter,
-          RULE.LongerThan4,
-          RULE.LongerThan8,
-          RULE.UpperAndLower,
+          RulesErrorLexicon.OneLetter,
+          RulesErrorLexicon.LongerThan4,
+          RulesErrorLexicon.LongerThan8,
+          RulesErrorLexicon.UpperAndLower,
         ],
         description: "longer than 8",
       },
       {
         password: "1234567890asd",
         passedRules: [
-          RULE.OneLetter,
-          RULE.LongerThan4,
-          RULE.OneNumber,
-          RULE.LongerThan8,
-          RULE.LongerThan12,
+          RulesErrorLexicon.OneLetter,
+          RulesErrorLexicon.LongerThan4,
+          RulesErrorLexicon.OneNumber,
+          RulesErrorLexicon.LongerThan8,
+          RulesErrorLexicon.LongerThan12,
         ],
         description: "longer than 12",
       },
       {
         password: "#UpperLowerNumb3rLongEnough!",
-        passedRules: Object.values(RULE),
+        passedRules: Object.values(RulesErrorLexicon),
         description: "all rules satisfied",
       },
     ];
@@ -116,7 +116,7 @@ describe("App", () => {
       'with password set to "$password" should indicate $description',
       async ({ password, passedRules }) => {
         expect.hasAssertions();
-        const failedRules = Object.values(RULE).filter(
+        const failedRules = Object.values(RulesErrorLexicon).filter(
           (rule) => !passedRules.includes(rule)
         );
 

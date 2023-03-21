@@ -1,26 +1,30 @@
-<script setup>
-import { RULE } from "@/domain/password/rules";
-
-const rules = Object.values(RULE);
-</script>
-
 <template>
-  <div>
-    <input data-test="password-field" />
-
-    <ul>
-      <li
-        v-for="rule in rules"
-        :key="rule"
-        :data-test-rule-indicator="rule"
-        class="password-hint__rule password-hint__rule--fail"
-      >
-        HINT
-      </li>
-    </ul>
-
-    <span data-test="validation-summary">Strong or Weak?</span>
+  <div class="layout">
+    <div class="layout__content">
+      <Field class="layout__field" />
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<script setup>
+import { RULE } from "@/domain/password/rules";
+import Field from "@/components/Field.vue"
+
+</script>
+
+<style lang="scss" scoped>
+.layout {
+  background: #e3e3e3;
+
+  &__content {
+    min-height: 100vh;
+    padding: 50px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+}
+</style>
+

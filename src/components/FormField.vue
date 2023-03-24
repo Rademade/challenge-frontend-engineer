@@ -64,7 +64,6 @@ import {
 
 import { reactive, computed } from "vue";
 import { useField } from "vee-validate";
-import { ref } from "vue";
 
 let formData = reactive({
   data: null,
@@ -93,12 +92,13 @@ const props = defineProps({
   },
 });
 
-const errors = ref(props.fieldErrors);
+const errors = reactive(props.fieldErrors);
+const errorsData = reactive(errorsData);
 
 function validateField(value) {
   if (value) {
     for (const key of Object.keys(errors)) {
-      errors[key] = isRegexMatch(props.errorsData.RULE[key], value);
+      errors[key] = isRegexMatch(errorsData.RULE[key], value);
     }
 
     if (props.fieldParams.isPasswordField) countRating();
@@ -125,12 +125,12 @@ function countRating() {
     }
 
     if (errors[key] === false) {
-      arr.push(props.errorsData.RulesErrorLexicon[key]);
+      arr.push(errorsData.RulesErrorLexicon[key]);
     }
   }
 
   if (total === 0) {
-    formData.singleErrorMessage = props.errorsData.RulesErrorLexicon.default;
+    formData.singleErrorMessage = errorsData.RulesErrorLexicon.default;
   }
 
   if (total < 5) {
@@ -140,7 +140,7 @@ function countRating() {
   }
 
   arr.length === 0
-    ? (formData.singleErrorMessage = props.errorsData.RulesErrorLexicon.Exact)
+    ? (formData.singleErrorMessage = errorsData.RulesErrorLexicon.Exact)
     : (formData.singleErrorMessage = arr[0]);
 
   formData.passwordRatingText = StrengthOptionLabel[formData.passwordRating];

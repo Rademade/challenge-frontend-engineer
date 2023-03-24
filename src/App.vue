@@ -23,7 +23,7 @@ const params = {
   isPasswordField: true,
 };
 
-let errors = reactive({
+let errors = {
   OneLetter: false,
   UpperAndLower: false,
   OneNumber: false,
@@ -31,7 +31,7 @@ let errors = reactive({
   LongerThan4: false,
   LongerThan8: false,
   LongerThan12: false,
-});
+};
 
 let rules = {
   RULE,

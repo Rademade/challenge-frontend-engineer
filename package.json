@@ -12,16 +12,19 @@
   },
   "dependencies": {
     "pinia": "^2.0.26",
-    "vee-validate": "^4.8.3",
+    "vee-validate": "^4.8.4",
     "vue": "^3.2.45"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
     "@vitejs/plugin-vue": "^3.2.0",
-    "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/test-utils": "^2.2.4",
-    "eslint": "^8.22.0",
-    "eslint-plugin-vue": "^9.3.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-prettier-vue": "^4.2.0",
+    "eslint-plugin-vue": "^9.8.0",
     "jsdom": "^20.0.3",
     "prettier": "^2.7.1",
     "sass": "^1.59.3",

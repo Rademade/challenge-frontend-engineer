@@ -93,7 +93,7 @@ const props = defineProps({
 });
 
 const errors = reactive(props.fieldErrors);
-const errorsData = reactive(errorsData);
+const errorsData = reactive(props.errorsData);
 
 function validateField(value) {
   if (value) {
